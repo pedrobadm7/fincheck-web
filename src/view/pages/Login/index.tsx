@@ -29,9 +29,9 @@ export function Login() {
         <Input
           type="password"
           placeholder="Senha"
+          error={errors.password?.message}
           {...register('password')}
         />
-        {errors.password && <span>{errors.password.message}</span>}
         <Button type="submit" className="mt-2">Entrar</Button>
       </form>
     </>
