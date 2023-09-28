@@ -1,14 +1,18 @@
-import { useAuth } from '../../../app/hooks/useAuth';
-import { Button } from '../../components/Button';
+import { Logo } from '../../components/Logo';
+import { UserMenu } from '../../components/UserMenu';
 
 export function Dashboard() {
-  const { signout } = useAuth()
 
   return (
-    <div>
-      <h1>Dashboard</h1>
+    <div className="h-full w-full px-8 pb-8 pt-6 flex flex-col">
+      <header className="h-12 flex justify-between items-center">
+        <Logo className="h-6 text-teal-900" />
+        <UserMenu />
+      </header>
 
-      <Button onClick={signout}>Sair</Button>
+      <main>
+        Content
+      </main>
     </div>
   )
 }
