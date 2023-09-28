@@ -4,6 +4,7 @@ import { localStorageKeys } from '../config/localStorageKeys';
 interface AuthContextValue {
   signedIn: boolean;
   signin(accessToken: string): void
+  signout(): void
 }
 
 export const AuthContext = createContext<AuthContextValue>({} as AuthContextValue);
@@ -20,10 +21,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     setSignedIn(true);
 
+  }, []);
+
+  const signout = useCallback(() => {
+    localStorage.removeItem(localStorageKeys.ACCESS_TOKEN);
+
+    setSignedIn(prevState => !prevState);
   }, [])
 
   return (
-    <AuthContext.Provider value={{ signin, signedIn }}>
+    <AuthContext.Provider value={{ signin, signedIn, signout }}>
       {children}
     </AuthContext.Provider>
   )
