@@ -22,7 +22,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const { isError } = useQuery({
     queryKey: ['loggedUser'],
     queryFn: () => usersService.me(),
-    enabled: signedIn
+    enabled: signedIn,
+    staleTime: Infinity
   });
 
   const signin = useCallback((accessToken: string) => {
