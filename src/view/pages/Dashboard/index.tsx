@@ -13,10 +13,10 @@ export function Dashboard() {
       </header>
 
       <main className="flex-1 flex gap-4 flex-col md:flex-row">
-        <div className="w-full md:m-1/2">
+        <div className="w-full md:w-1/2">
           <Accounts />
         </div>
-        <div className="w-full md:m-1/2">
+        <div className="w-full md:w-1/2">
           <Transactions />
         </div>
       </main>
