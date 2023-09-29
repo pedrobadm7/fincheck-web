@@ -23,7 +23,7 @@ export function Accounts() {
             spaceBetween={16}
             slidesPerView={2.1}
           >
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-4" slot="container-start">
               <strong className="text-white tracking-[-1px] text-large font-bold">
                 Minhas contas
               </strong>
@@ -31,32 +31,32 @@ export function Accounts() {
               <AccountsSliderNavigation />
             </div>
 
-            <div className="mt-4">
-              <SwiperSlide>
-                <AccountCard
-                  color="#7950F2"
-                  name="Nubank"
-                  balance={1000.50}
-                  type="CASH"
-                />
-              </SwiperSlide>
-              <SwiperSlide>
-                <AccountCard
-                  color="#7950F2"
-                  name="Nubank"
-                  balance={1000.50}
-                  type="CASH"
-                />
-              </SwiperSlide>
-              <SwiperSlide>
-                <AccountCard
-                  color="#7950F2"
-                  name="Nubank"
-                  balance={1000.50}
-                  type="CASH"
-                />
-              </SwiperSlide>
-            </div>
+
+            <SwiperSlide>
+              <AccountCard
+                color="#7950F2"
+                name="Nubank"
+                balance={1000.50}
+                type="CASH"
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <AccountCard
+                color="#7950F2"
+                name="Nubank"
+                balance={1000.50}
+                type="CASH"
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <AccountCard
+                color="#7950F2"
+                name="Nubank"
+                balance={1000.50}
+                type="CASH"
+              />
+            </SwiperSlide>
+
           </Swiper>
         </div>
       </div>
