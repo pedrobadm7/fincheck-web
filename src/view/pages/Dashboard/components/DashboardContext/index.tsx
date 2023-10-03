@@ -9,7 +9,7 @@ interface DashboardContextValue {
 export const DashboardContext = createContext({} as DashboardContextValue);
 
 export function DashboardProvider({ children }: { children: ReactNode }) {
-  const [areValuesVisible, setAreValuesVisible] = useState(() => {
+  const [areValuesVisible, setAreValuesVisible] = useState<boolean>(() => {
 
     const storedValue = localStorage.getItem(localStorageKeys.HIDE_VALUES);
 
