@@ -2,9 +2,10 @@
 import { AccountCard } from './AccountCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import { AccountsSliderNavigation } from './AccountsSliderNavigation';
+
 import { EyeIcon } from '../../../../components/icons/EyeIcon';
 import { useAccountsController } from './useAccountsController';
+import { SliderNavigation } from './SliderNavigation';
 
 
 export function Accounts() {
@@ -39,7 +40,7 @@ export function Accounts() {
                 Minhas contas
               </strong>
 
-              <AccountsSliderNavigation
+              <SliderNavigation
                 isBeginning={isBeginning}
                 isEnd={isEnd}
               />
