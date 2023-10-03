@@ -7,7 +7,7 @@ export function Dashboard() {
 
   return (
     <div className="h-full w-full p-4 md:px-8 md:pb-8 md:pt-6 flex flex-col">
-      <header className="h-12 flex justify-between items-center">
+      <header className="h-12 flex justify-between items-center mb-4">
         <Logo className="h-6 text-teal-900" />
         <UserMenu />
       </header>
