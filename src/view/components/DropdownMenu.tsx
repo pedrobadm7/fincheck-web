@@ -1,5 +1,17 @@
 import * as RdxDropdownMenu from '@radix-ui/react-dropdown-menu';
 import { ReactNode } from 'react';
+import { cn } from '../../app/utils/cn';
+
+interface DropdownMenuItemProps {
+  children: ReactNode;
+  className?: string;
+  onSelect?: () => void
+}
+
+interface DropdownMenuContentProps {
+  children: ReactNode;
+  className?: string;
+}
 
 function DropdownMenuRoot({ children }: { children: ReactNode }) {
   return (
@@ -16,20 +28,32 @@ function DropdownMenuTrigger({ children }: { children: ReactNode }) {
     </RdxDropdownMenu.Trigger>
   )
 }
-//
-function DropdownMenuContent({ children }: { children: ReactNode }) {
+
+function DropdownMenuContent({ children, className }: DropdownMenuContentProps) {
   return (
     <RdxDropdownMenu.Portal>
-      <RdxDropdownMenu.Content className="rounded-2xl p-2 bg-white space-y-2 shadow-[0px_11px_20px_0px_rgba(0,0,0,0.10)]">
+      <RdxDropdownMenu.Content
+        side="bottom"
+        className={cn(
+          "rounded-2xl p-2 bg-white space-y-2 shadow-[0px_11px_20px_0px_rgba(0,0,0,0.10)] z-50",
+          "data-[side=bottom]:animate-slide-up-and-fade",
+          "data-[side=top]:animate-slide-down-and-fade",
+          className,
+        )}>
         {children}
       </RdxDropdownMenu.Content>
     </RdxDropdownMenu.Portal>
   )
 }
 
-function DropdownMenuItem({ children }: { children: ReactNode }) {
+function DropdownMenuItem({ children, className, onSelect }: DropdownMenuItemProps) {
   return (
-    <RdxDropdownMenu.Item className="min-h-[48px] outline-none flex items-center p-2 text-gray-800 text-sm hover:bg-gray-50 rounded-2xl transition-colors">
+    <RdxDropdownMenu.Item
+      onSelect={onSelect}
+      className={cn(
+        "min-h-[40px] outline-none flex items-center px-4  text-gray-800 text-sm data-[highlighted]:bg-gray-50 rounded-2xl transition-colors cursor-pointer",
+        className,
+      )}>
       {children}
     </RdxDropdownMenu.Item>
   )
