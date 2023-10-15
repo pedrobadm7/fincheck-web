@@ -3,7 +3,10 @@ import { localStorageKeys } from '../../../../../app/config/localStorageKeys';
 
 interface DashboardContextValue {
   areValuesVisible: boolean;
+  isNewAccountModalopen: boolean;
   toggleValueVisibility: () => void;
+  closeNewAccountModal: () => void;
+  openNewAccountModal: () => void;
 }
 
 export const DashboardContext = createContext({} as DashboardContextValue);
@@ -16,8 +19,18 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
     return storedValue ? !!JSON.parse(storedValue) : true;
   });
 
+  const [isNewAccountModalopen, setIsNewAccountModalOpen] = useState(true);
+
   const toggleValueVisibility = useCallback(() => {
     setAreValuesVisible(prevState => !prevState)
+  }, []);
+
+  const openNewAccountModal = useCallback(() => {
+    setIsNewAccountModalOpen(true)
+  }, []);
+
+  const closeNewAccountModal = useCallback(() => {
+    setIsNewAccountModalOpen(false)
   }, []);
 
   useEffect(() => {
@@ -25,7 +38,7 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
   }, [areValuesVisible]);
 
   return (
-    <DashboardContext.Provider value={{ areValuesVisible, toggleValueVisibility }}>
+    <DashboardContext.Provider value={{ areValuesVisible, toggleValueVisibility, isNewAccountModalopen, openNewAccountModal, closeNewAccountModal }}>
       {children}
     </DashboardContext.Provider>
   )
