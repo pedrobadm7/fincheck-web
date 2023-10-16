@@ -19,7 +19,7 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
     return storedValue ? !!JSON.parse(storedValue) : true;
   });
 
-  const [isNewAccountModalopen, setIsNewAccountModalOpen] = useState(true);
+  const [isNewAccountModalopen, setIsNewAccountModalOpen] = useState(false);
 
   const toggleValueVisibility = useCallback(() => {
     setAreValuesVisible(prevState => !prevState)
