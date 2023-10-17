@@ -32,7 +32,7 @@ export function NewAccountModal() {
           />
 
           <Select
-            placeholder="Tipo"
+            placeholder="Categoria"
             options={[
               {
                 value: 'CHECKING',
