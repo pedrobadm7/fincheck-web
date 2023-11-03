@@ -13,6 +13,7 @@ export function NewAccountModal() {
     isNewAccountModalopen,
     errors,
     control,
+    isLoading,
     register,
     handleSubmit
   } = useNewAccountModalController()
@@ -94,7 +95,7 @@ export function NewAccountModal() {
           />
         </div>
 
-        <Button type="submit" className="w-full mt-6">
+        <Button type="submit" className="w-full mt-6" isLoading={isLoading}>
           Criar
         </Button>
       </form>
