@@ -22,7 +22,7 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
 
     return storedValue ? !!JSON.parse(storedValue) : true;
   });
-  const [isNewAccountModalopen, setIsNewAccountModalOpen] = useState(false);
+  const [isNewAccountModalopen, setIsNewAccountModalOpen] = useState(true);
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false);
   const [newTransactionType, setNewTransactionType] = useState<"INCOME" | "EXPENSE" | null>(null)
 

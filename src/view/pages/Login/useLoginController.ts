@@ -47,5 +47,6 @@ export function useLoginController() {
       toast.error('Credenciais inválidas!')
     }
   });
+
   return { handleSubmit, register, errors, isLoading };
 }
