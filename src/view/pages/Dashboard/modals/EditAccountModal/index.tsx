@@ -5,7 +5,7 @@ import { Input } from '../../../../components/Input';
 import { InputCurrency } from '../../../../components/InputCurrency';
 import { Modal } from '../../../../components/Modal';
 import { Select } from '../../../../components/Select';
-import { useNewAccountModalController } from './useNewAccountModalController';
+import { useEditAccountModalController } from './useEditAccountModalController';
 
 export function EditAccountModal() {
   const {
@@ -16,7 +16,7 @@ export function EditAccountModal() {
     isLoading,
     register,
     handleSubmit
-  } = useNewAccountModalController()
+  } = useEditAccountModalController()
 
   return (
     <Modal
@@ -96,7 +96,7 @@ export function EditAccountModal() {
         </div>
 
         <Button type="submit" className="w-full mt-6" isLoading={isLoading}>
-          Criar
+          Salvar
         </Button>
       </form>
     </Modal>

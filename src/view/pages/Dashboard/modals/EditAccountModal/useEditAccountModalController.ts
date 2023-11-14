@@ -8,7 +8,10 @@ import { currencyStringToNumber } from '../../../../../app/utils/currencyStringT
 import toast from 'react-hot-toast';
 
 const schema = z.object({
-  initialBalance: z.string().nonempty('Saldo inicial é obrigatório'),
+  initialBalance: z.union([
+    z.string().nonempty('Saldo inicial é obrigatório'),
+    z.number(),
+  ]),
   name: z.string().nonempty('Nome da Conta é obrigatório'),
   type: z.enum(['CHECKING', 'INVESTMENT', 'CASH']),
   color: z.string().nonempty('Cor é obrigatória')
@@ -16,9 +19,10 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-export function useNewAccountModalController() {
+export function useEditAccountModalController() {
   const {
     isEditAccountModalOpen,
+    accountBeingEdited,
     closeEditAccountModal
   } = useDashboard();
 
@@ -30,6 +34,12 @@ export function useNewAccountModalController() {
     reset,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      color: accountBeingEdited?.color,
+      name: accountBeingEdited?.name,
+      type: accountBeingEdited?.type,
+      initialBalance: accountBeingEdited?.initialBalance
+    }
   });
 
   const queryClient = useQueryClient()
@@ -62,6 +72,7 @@ export function useNewAccountModalController() {
     errors,
     control,
     isLoading,
+    accountBeingEdited,
     register,
     handleSubmit,
     closeEditAccountModal,
