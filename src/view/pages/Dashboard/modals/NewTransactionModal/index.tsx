@@ -33,6 +33,7 @@ export function NewTransactiontModal() {
     closeNewTransactionModal,
     handleSubmit,
     register,
+    isLoading,
     isNewTransactionModalOpen,
     newTransactionType,
     control,
@@ -121,8 +122,10 @@ export function NewTransactiontModal() {
           <Controller
             control={control}
             name="date"
+            defaultValue={new Date()}
             render={({ field: { value, onChange } }) => (
               <DatePickerInput
+                error={errors.date?.message}
                 value={value}
                 onChange={onChange}
               />
@@ -130,7 +133,7 @@ export function NewTransactiontModal() {
           />
         </div>
 
-        <Button type="submit" className="w-full mt-6">
+        <Button type="submit" className="w-full mt-6" isLoading={isLoading}>
           Criar
         </Button>
       </form>

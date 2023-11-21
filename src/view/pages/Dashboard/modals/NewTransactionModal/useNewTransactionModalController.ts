@@ -4,6 +4,11 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useBankAccounts } from '../../../../../app/hooks/useBankAccounts';
 import { useCategories } from '../../../../../app/hooks/useCategories';
+import { useMemo } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { transactionService } from '../../../../../app/services/transactionsService';
+import toast from 'react-hot-toast';
+import { currencyStringToNumber } from '../../../../../app/utils/currencyStringToNumber';
 
 const schema = z.object({
   value: z.string().nonempty('Informe o valor da transação'),
@@ -21,21 +26,50 @@ export function useNewTransactionModalController() {
     newTransactionType,
     closeNewTransactionModal
   } = useDashboard();
-
+  const queryClient = useQueryClient();
   const { accounts } = useBankAccounts();
-  const { categories } = useCategories();
+  const { categories: categoriesList } = useCategories();
+
+  const {
+    isLoading,
+    mutateAsync
+  } = useMutation(transactionService.create)
+
+  const categories = useMemo(() => {
+    return categoriesList.filter(category => category.type === newTransactionType)
+  }, [categoriesList, newTransactionType])
 
   const {
     control,
     formState: { errors },
     handleSubmit: hookFormSubmit,
     register,
+    reset,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
 
-  const handleSubmit = hookFormSubmit(data => {
-    console.log(data)
+  const handleSubmit = hookFormSubmit(async data => {
+    try {
+
+      await mutateAsync({
+        ...data,
+        value: currencyStringToNumber(data.value),
+        type: newTransactionType!,
+        date: data.date.toISOString(),
+      });
+
+      queryClient.invalidateQueries({ queryKey: ['transactions'] })
+      toast.success(
+        newTransactionType === 'EXPENSE'
+          ? 'Despesa cadastrada com sucesso!'
+          : 'Receita cadastrada com sucesso!'
+      );
+      closeNewTransactionModal();
+      reset();
+    } catch {
+      toast.error('Erro ao cadastrar transação')
+    }
   });
 
   return {
@@ -45,6 +79,7 @@ export function useNewTransactionModalController() {
     control,
     accounts,
     categories,
+    isLoading,
     register,
     closeNewTransactionModal,
     handleSubmit
