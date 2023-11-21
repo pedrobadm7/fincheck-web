@@ -36,7 +36,8 @@ export function NewTransactiontModal() {
     isNewTransactionModalOpen,
     newTransactionType,
     control,
-    errors
+    errors,
+    accounts
   } = useNewTransactionModalController();
 
   return (
@@ -117,20 +118,10 @@ export function NewTransactiontModal() {
                 value={value}
                 placeholder={selectPlaceholder[newTransactionType!]}
                 error={errors.bankAccountId?.message}
-                options={[
-                  {
-                    value: 'CHECKING',
-                    label: 'Conta Corrente',
-                  },
-                  {
-                    value: 'INVESTMENT',
-                    label: 'Investimentos',
-                  },
-                  {
-                    value: 'CASH',
-                    label: 'Dinheiro Físico',
-                  }
-                ]}
+                options={accounts.map(account => ({
+                  value: account.id,
+                  label: account.name
+                }))}
               />
 
             )}

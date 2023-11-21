@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { useDashboard } from '../../components/DashboardContext/useDashboard';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useBankAccounts } from '../../../../../app/hooks/useBankAccounts';
 
 const schema = z.object({
   value: z.string().nonempty('Informe o valor da transação'),
@@ -20,6 +21,8 @@ export function useNewTransactionModalController() {
     closeNewTransactionModal
   } = useDashboard();
 
+  const { accounts, isFetching } = useBankAccounts();
+
   const {
     control,
     formState: { errors },
@@ -31,13 +34,15 @@ export function useNewTransactionModalController() {
 
   const handleSubmit = hookFormSubmit(data => {
     console.log(data)
-  })
+  });
 
   return {
     isNewTransactionModalOpen,
     newTransactionType,
     errors,
     control,
+    accounts,
+    isFetching,
     register,
     closeNewTransactionModal,
     handleSubmit
