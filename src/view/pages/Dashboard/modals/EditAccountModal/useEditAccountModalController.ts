@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { bankAccountsService } from '../../../../../app/services/bankAccountService';
 import { currencyStringToNumber } from '../../../../../app/utils/currencyStringToNumber';
 import toast from 'react-hot-toast';
+import { useState } from 'react';
 
 const schema = z.object({
   initialBalance: z.union([
@@ -41,8 +42,20 @@ export function useEditAccountModalController() {
     }
   });
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
   const queryClient = useQueryClient()
   const { isLoading, mutateAsync } = useMutation(bankAccountsService.update);
+
+  function handleOpenDeleteModal() {
+    setIsDeleteModalOpen(true);
+  }
+
+  function handleCloseDeleteModal() {
+    setIsDeleteModalOpen(false);
+  }
+
+  function handleDeleteAccount() { }
 
   const handleSubmit = hookFormSubmit(async (data) => {
     try {
@@ -67,8 +80,12 @@ export function useEditAccountModalController() {
     control,
     isLoading,
     accountBeingEdited,
+    isDeleteModalOpen,
     register,
     handleSubmit,
     closeEditAccountModal,
+    handleOpenDeleteModal,
+    handleCloseDeleteModal,
+    handleDeleteAccount
   }
 }
