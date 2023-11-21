@@ -18,6 +18,7 @@ export function EditAccountModal() {
     errors,
     control,
     isLoading,
+    isLoadingDelete,
     register,
     handleSubmit,
     handleCloseDeleteModal,
@@ -30,6 +31,7 @@ export function EditAccountModal() {
       <ConfirmDeleteModal
         onConfirm={handleDeleteAccount}
         onClose={handleCloseDeleteModal}
+        isLoading={isLoadingDelete}
         title="Tem certeza que deseja excluir essa conta?"
         description="Ao excluir a conta, também serão excluídos todos os registros de receita e despesas relacionados."
       />

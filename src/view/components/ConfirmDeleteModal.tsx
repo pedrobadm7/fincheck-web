@@ -7,9 +7,10 @@ interface ConfirmDeleteModalProps {
   onConfirm(): void;
   title: string;
   description?: string;
+  isLoading: boolean;
 }
 
-export function ConfirmDeleteModal({ onConfirm, onClose, title, description }: ConfirmDeleteModalProps) {
+export function ConfirmDeleteModal({ onConfirm, onClose, title, description, isLoading }: ConfirmDeleteModalProps) {
   return (
     <Modal open title="Excluir" onClose={onClose}>
       <div className="flex flex-col items-center text-center gap-6">
@@ -26,11 +27,21 @@ export function ConfirmDeleteModal({ onConfirm, onClose, title, description }: C
       </div>
 
       <div className="mt-10 space-y-4">
-        <Button className="w-full" variant="danger" onClick={onConfirm}>
+        <Button
+          className="w-full"
+          variant="danger"
+          onClick={onConfirm}
+          isLoading={isLoading}
+        >
           Sim, desejo excluir
         </Button>
 
-        <Button className="w-full" variant="ghost" onClick={onClose}>
+        <Button
+          className="w-full"
+          variant="ghost"
+          onClick={onClose}
+          disabled={isLoading}
+        >
           Cancelar
         </Button>
       </div>
