@@ -3,7 +3,7 @@ import { bankAccountsService } from '../services/bankAccountService';
 
 export function useBankAccounts() {
   const { data, isFetching } = useQuery({
-    queryKey: ['bankAccounts'],
+    queryKey: ['banksAccounts'],
     queryFn: bankAccountsService.getAll
   });
 

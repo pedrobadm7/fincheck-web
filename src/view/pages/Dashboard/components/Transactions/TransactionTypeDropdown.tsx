@@ -25,7 +25,7 @@ export function TransactionTypeDropdown({ onSelect, selectedType }: TransactionT
           <span className="text-sm text-gray-800  tracking-[-0.5px] font-medium">
             {selectedType === 'EXPENSE' && 'Despesas'}
             {selectedType === 'INCOME' && 'Receitas'}
-            {selectedType === undefined && 'Receitas'}
+            {selectedType === undefined && 'Transações'}
           </span>
 
           <ChevronDownIcon className="text-gray-900" />
