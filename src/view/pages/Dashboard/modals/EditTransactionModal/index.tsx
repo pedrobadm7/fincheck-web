@@ -8,6 +8,8 @@ import { Modal } from '../../../../components/Modal';
 import { Select } from '../../../../components/Select';
 import { useEditTransactionModalController } from './useEditTransactionModalController';
 import { Transaction } from '../../../../../app/entities/transaction';
+import { ConfirmDeleteModal } from '../../../../components/ConfirmDeleteModal';
+import { TrashIcon } from '../../../../components/icons/Trash';
 
 interface EditTransactionModalProps {
   transaction: Transaction | null;
@@ -35,22 +37,49 @@ const selectPlaceholder = {
   INCOME: "Receber com"
 }
 
+const typeDelete = {
+  EXPENSE: "Tem certeza que deseja excluir essa despesa?",
+  INCOME: "Tem certeza que deseja excluir essa entrada?"
+}
+
 export function EditTransactionModal({ transaction, open, onClose }: EditTransactionModalProps) {
   const {
     handleSubmit,
     register,
+    handleDeleteTransaction,
+    handleCloseDeleteModal,
+    handleOpenDeleteModal,
     control,
     errors,
     accounts,
     categories,
-    isLoading
+    isLoading,
+    isDeleteModalOpen,
+    isLoadingDelete
   } = useEditTransactionModalController(transaction, onClose);
+
+  if (isDeleteModalOpen) {
+    return (
+      <ConfirmDeleteModal
+        onConfirm={handleDeleteTransaction}
+        onClose={handleCloseDeleteModal}
+        isLoading={isLoadingDelete}
+        title={typeDelete[transaction?.type ?? 'EXPENSE']}
+
+      />
+    )
+  }
 
   return (
     <Modal
       title={transactionTypeTitle[transaction?.type ?? 'EXPENSE']}
       open={open}
       onClose={onClose}
+      rightAction={(
+        <button onClick={handleOpenDeleteModal}>
+          <TrashIcon className="w-6 h-6 text-red-900" />
+        </button>
+      )}
     >
       <form onSubmit={handleSubmit}>
         <div >
