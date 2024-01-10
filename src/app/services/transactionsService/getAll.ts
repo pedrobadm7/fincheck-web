@@ -3,14 +3,14 @@ import { httpClient } from '../httpClient';
 
 type TransactionsResponse = Array<Transaction>
 
-export type TransactionFilters = {
+export type TransactionsFilters = {
   month: number;
   year: number;
   bankAccountId?: string;
   type?: Transaction['type']
 }
 
-export async function getAll(filters: TransactionFilters) {
+export async function getAll(filters: TransactionsFilters) {
   const { data } = await httpClient.get<TransactionsResponse>('/transactions', {
     params: filters
   });

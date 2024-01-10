@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useDashboard } from '../DashboardContext/useDashboard';
 import { useTransactions } from '../../../../../app/hooks/useTransactions';
-import { TransactionFilters } from '../../../../../app/services/transactionsService/getAll';
+import { TransactionsFilters } from '../../../../../app/services/transactionsService/getAll';
 
 export function useTransactionsController() {
   const { areValuesVisible } = useDashboard();
 
   const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
-  const [filters, setFilters] = useState<TransactionFilters>({
+  const [filters, setFilters] = useState<TransactionsFilters>({
     month: new Date().getMonth(),
     year: new Date().getFullYear()
   })
@@ -21,13 +21,17 @@ export function useTransactionsController() {
 
   useEffect(() => {
     refetchTransactions();
-  }, [filters, refetchTransactions])
+  }, [filters, refetchTransactions]);
 
-  function handleChangeMonth(month: number) {
-    setFilters(prevState => ({
-      ...prevState,
-      month
-    }))
+  function handleChangeFilters<TFilter extends keyof TransactionsFilters>(filter: TFilter) {
+    return (value: TransactionsFilters[TFilter]) => {
+      if (value === filters[filter]) return;
+
+      setFilters(prevState => ({
+        ...prevState,
+        [filter]: value
+      }))
+    }
   }
 
   function handleOpenFiltersModal() {
@@ -45,7 +49,7 @@ export function useTransactionsController() {
     transactions,
     handleCloseFiltersModal,
     handleOpenFiltersModal,
-    handleChangeMonth,
+    handleChangeFilters,
     isFiltersModalOpen,
     filters
   }
