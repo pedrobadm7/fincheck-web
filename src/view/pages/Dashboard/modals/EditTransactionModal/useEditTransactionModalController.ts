@@ -54,7 +54,8 @@ export function useEditTransactionModalController(
 
       await removeTransaction(transaction!.id);
 
-      queryClient.invalidateQueries({ queryKey: ['transactions'] })
+      queryClient.invalidateQueries({ queryKey: ['transactions'] });
+      queryClient.invalidateQueries({ queryKey: ['bankAccounts'] });
       toast.success(transaction!.type === 'EXPENSE'
         ? 'A despesa foi deletada com sucesso'
         : 'A receita foi deletada com sucesso'

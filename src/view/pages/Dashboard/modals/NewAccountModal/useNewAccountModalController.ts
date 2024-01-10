@@ -43,7 +43,7 @@ export function useNewAccountModalController() {
         initialBalance: currencyStringToNumber(data.initialBalance),
       });
 
-      queryClient.invalidateQueries({ queryKey: ['banksAccounts'] })
+      queryClient.invalidateQueries({ queryKey: ['bankAccounts'] })
       toast.success('Conta foi cadastrada com sucesso!');
       closeNewAccountModal();
       reset({

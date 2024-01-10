@@ -4,10 +4,12 @@ import { useQuery } from '@tanstack/react-query';
 import { usersService } from '../services/usersService';
 import { toast } from 'react-hot-toast';
 import LaunchScreen from '../../view/pages/LaunchScreen';
+import { User } from '../entities/user';
 
 
 interface AuthContextValue {
   signedIn: boolean;
+  user: User | undefined;
   signin(accessToken: string): void
   signout(): void
 }
@@ -21,8 +23,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return !!storedAccessToken;
   });
 
-  const { isError, isFetching, isSuccess, remove } = useQuery({
-    queryKey: ['loggedUser'],
+  const { isError, isFetching, isSuccess, remove, data } = useQuery({
+    queryKey: ['users', 'me'],
     queryFn: () => usersService.me(),
     enabled: signedIn,
     staleTime: Infinity
@@ -51,8 +53,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   return (
     <AuthContext.Provider
       value={{
-        signin,
         signedIn: isSuccess && signedIn,
+        user: data,
+        signin,
         signout
       }}>
       <LaunchScreen isLoading={isFetching} />
