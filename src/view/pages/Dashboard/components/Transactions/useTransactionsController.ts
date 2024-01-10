@@ -7,7 +7,7 @@ export function useTransactionsController() {
 
   const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
 
-  const { transactions } = useTransactions();
+  const { transactions, isLoading, isInitialLoading } = useTransactions();
 
   function handleOpenFiltersModal() {
     setIsFiltersModalOpen(true);
@@ -19,8 +19,8 @@ export function useTransactionsController() {
 
   return {
     areValuesVisible,
-    isInitialLoading: false,
-    isLoading: false,
+    isInitialLoading,
+    isLoading,
     transactions,
     handleCloseFiltersModal,
     handleOpenFiltersModal,
