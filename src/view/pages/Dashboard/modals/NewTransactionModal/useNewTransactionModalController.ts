@@ -26,6 +26,7 @@ export function useNewTransactionModalController() {
     newTransactionType,
     closeNewTransactionModal
   } = useDashboard();
+
   const queryClient = useQueryClient();
   const { accounts } = useBankAccounts();
   const { categories: categoriesList } = useCategories();
@@ -66,7 +67,10 @@ export function useNewTransactionModalController() {
           : 'Receita cadastrada com sucesso!'
       );
       closeNewTransactionModal();
-      reset();
+      reset({
+        value: '',
+        name: '',
+      });
     } catch {
       toast.error('Erro ao cadastrar transação')
     }
