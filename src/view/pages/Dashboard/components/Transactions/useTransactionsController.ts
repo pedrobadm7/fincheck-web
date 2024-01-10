@@ -21,7 +21,7 @@ export function useTransactionsController() {
 
   useEffect(() => {
     refetchTransactions();
-  }, [filters])
+  }, [filters, refetchTransactions])
 
   function handleChangeMonth(month: number) {
     setFilters(prevState => ({
