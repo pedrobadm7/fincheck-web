@@ -44,7 +44,7 @@ export function EditTransactionModal({ transaction, open, onClose }: EditTransac
     accounts,
     categories,
     isLoading
-  } = useEditTransactionModalController(transaction);
+  } = useEditTransactionModalController(transaction, onClose);
 
   return (
     <Modal

@@ -5,6 +5,10 @@ import { useBankAccounts } from '../../../../../app/hooks/useBankAccounts';
 import { useCategories } from '../../../../../app/hooks/useCategories';
 import { useMemo } from 'react';
 import { Transaction } from '../../../../../app/entities/transaction';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { transactionService } from '../../../../../app/services/transactionsService';
+import { currencyStringToNumber } from '../../../../../app/utils/currencyStringToNumber';
+import toast from 'react-hot-toast';
 
 const schema = z.object({
   value: z.union([
@@ -20,11 +24,16 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export function useEditTransactionModalController(
-  transaction: Transaction | null
+  transaction: Transaction | null,
+  onClose: () => void,
 ) {
+
+  const queryClient = useQueryClient();
 
   const { accounts } = useBankAccounts();
   const { categories: categoriesList } = useCategories();
+
+  const { isLoading, mutateAsync } = useMutation(transactionService.update)
 
   const categories = useMemo(() => {
     return categoriesList.filter(category => category.type === transaction?.type)
@@ -47,7 +56,28 @@ export function useEditTransactionModalController(
   });
 
   const handleSubmit = hookFormSubmit(async data => {
-    console.log(data)
+    try {
+
+      await mutateAsync({
+        ...data,
+        id: transaction!.id,
+        value: currencyStringToNumber(data.value),
+        type: transaction!.type,
+        date: data.date.toISOString(),
+      });
+
+      queryClient.invalidateQueries({ queryKey: ['transactions'] })
+      toast.success(
+        transaction!.type === 'EXPENSE'
+          ? 'Despesa editada com sucesso!'
+          : 'Receita editada com sucesso!'
+      );
+      onClose();
+    } catch {
+      toast.error(transaction!.type === 'EXPENSE'
+        ? 'Erro ao salvar a despesa!'
+        : 'Erro ao salvar a receita!')
+    }
   });
 
   return {
@@ -55,7 +85,7 @@ export function useEditTransactionModalController(
     control,
     accounts,
     categories,
-    isLoading: false,
+    isLoading,
     register,
     handleSubmit
   }
