@@ -47,4 +47,12 @@ yarn install / npm install
 VITE_API_URL=http:http://api.com
 ```
 
+## Autores
+Este projeto é baseado em um projeto do [JStack](https://jstack.com.br/)
 
+- <b>Mateus Silva</b> - Trabalho inicial [maateusilva](https://github.com/maateusilva)
+- <b>Pedro Barros Silva</b> - Aprimoramento [pedrobadm7](https://github.com/pedrobadm7)
+
+---
+
+⌨️ com ❤️ por [Pedro Barros Silva]([https://gist.github.com/lohhans](https://github.com/pedrobadm7)https://github.com/pedrobadm7) 😊
