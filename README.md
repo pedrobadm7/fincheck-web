@@ -1,8 +1,8 @@
-# <div align="center"><img src="src/assets/images/logo.svg" alt="Fincheck" /></div>
-
-Gerencie suas finanças pessoais de uma forma simples com o fincheck, e o melhor, totalmente de graça!
+# <div align="center"><img src="src/assets/images/logo.svg" alt="Fincheck" width={320} height={400}/></div>
 
 <img src="src/assets/images/cover.png" alt="Capa" />
+
+Gerencie suas finanças pessoais de uma forma simples com o fincheck, e o melhor, totalmente de graça!
 
 ## 💡 Features
 - Cadastro de contas bancárias
