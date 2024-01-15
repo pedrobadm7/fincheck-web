@@ -4,6 +4,12 @@ Gerencie suas finanças pessoais de uma forma simples com o fincheck, e o melhor
 
 <img src="src/assets/images/cover.png" alt="Capa" />
 
+## 💡 Features
+- Cadastro de contas bancárias
+- Cadastro de despesas e receitas
+- Associar gastos/despesas à contas bancárias
+- Filtrar por data, categoria de gasto/despesa, banco e muito mais!
+
 ## 🛠️ Tecnologias Utilizadas
 
 - Vite
