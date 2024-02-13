@@ -3,6 +3,8 @@ import { TransactionsIcon } from '../../../../components/icons/TransactionsIcon'
 import { DropdownMenu } from '../../../../components/DropdownMenu';
 import { IncomeIcon } from '../../../../components/icons/IncomeIcon';
 import { ExpensesIcon } from '../../../../components/icons/ExpensesIcon';
+import { useDarkMode } from '../../../../../app/hooks/useDarkMode';
+import { cn } from '../../../../../app/utils/cn';
 
 interface TransactionTypeDropdownProps {
   onSelect(type: 'INCOME' | 'EXPENSE' | undefined): void;
@@ -11,24 +13,24 @@ interface TransactionTypeDropdownProps {
 
 export function TransactionTypeDropdown({ onSelect, selectedType }: TransactionTypeDropdownProps) {
 
+  const { isDarkMode } = useDarkMode()
 
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
         <button className="flex items-center gap-2">
 
+          {selectedType === 'EXPENSE' && <ExpensesIcon stroke={isDarkMode ? 'white' : undefined} />}
+          {selectedType === 'INCOME' && <IncomeIcon stroke={isDarkMode ? 'white' : undefined} />}
+          {selectedType === undefined && <TransactionsIcon stroke={isDarkMode ? 'white' : undefined} />}
 
-          {selectedType === 'EXPENSE' && <ExpensesIcon />}
-          {selectedType === 'INCOME' && <IncomeIcon />}
-          {selectedType === undefined && <TransactionsIcon />}
-
-          <span className="text-sm text-gray-800  tracking-[-0.5px] font-medium">
+          <span className={cn("text-sm text-gray-800  tracking-[-0.5px] font-medium", isDarkMode && 'text-gray-200')}>
             {selectedType === 'EXPENSE' && 'Despesas'}
             {selectedType === 'INCOME' && 'Receitas'}
             {selectedType === undefined && 'Transações'}
           </span>
 
-          <ChevronDownIcon className="text-gray-900" />
+          <ChevronDownIcon className={cn("text-gray-900", isDarkMode && 'text-gray-200')} />
         </button>
       </DropdownMenu.Trigger>
 

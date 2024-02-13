@@ -53,7 +53,7 @@ export function Transactions() {
             onApplyFilters={handleApplyFilters}
           />
 
-          <header>
+          <header >
             <div className="flex justify-between items-center">
               <TransactionTypeDropdown
                 onSelect={handleChangeFilters('type')}
