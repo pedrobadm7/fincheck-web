@@ -13,6 +13,7 @@ import { TransactionTypeDropdown } from './TransactionTypeDropdown';
 import { FiltersModal } from './FiltersModal';
 import { formatDate } from '../../../../../app/utils/formatData';
 import { EditTransactionModal } from '../../modals/EditTransactionModal';
+import { useDarkMode } from '../../../../../app/hooks/useDarkMode';
 
 export function Transactions() {
   const {
@@ -32,10 +33,12 @@ export function Transactions() {
     handleCloseEditedModal
   } = useTransactionsController()
 
+  const { isDarkMode } = useDarkMode();
+
   const hasTransactions = transactions.length > 0;
 
   return (
-    <div className="bg-gray-100 rounded-2xl h-full w-full p-10 flex flex-col">
+    <div className={cn("bg-gray-100 rounded-2xl h-full w-full p-10 flex flex-col", isDarkMode && 'bg-gray-800')}>
       {isInitialLoading && (
         <div className="w-full h-full flex items-center justify-center">
           <Spinner className="w-10 h-10" />
