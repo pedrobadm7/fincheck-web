@@ -3,7 +3,6 @@ import { Modal } from '../../../../../components/Modal';
 import { Button } from '../../../../../components/Button';
 import { useFiltersModalController } from './useFiltersModalController';
 import { cn } from '../../../../../../app/utils/cn';
-import { useDarkMode } from '../../../../../../app/hooks/useDarkMode';
 
 interface FiltersModalProps {
   open: boolean;
@@ -22,8 +21,6 @@ export function FiltersModal({ open, onClose, onApplyFilters }: FiltersModalProp
     selectedYear,
     accounts
   } = useFiltersModalController();
-
-  const { isDarkMode } = useDarkMode()
 
   return (
     <Modal open={open} onClose={onClose} title="Filtros">
