@@ -6,7 +6,6 @@ import { toast } from 'react-hot-toast';
 import LaunchScreen from '../../view/pages/LaunchScreen';
 import { User } from '../entities/user';
 
-
 interface AuthContextValue {
   signedIn: boolean;
   user: User | undefined;

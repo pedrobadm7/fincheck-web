@@ -87,6 +87,7 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
         closeEditAccountModal
       }}
     >
+
       {children}
     </DashboardContext.Provider>
   )

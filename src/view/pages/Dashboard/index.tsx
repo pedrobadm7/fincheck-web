@@ -1,3 +1,5 @@
+import { useDarkMode } from '../../../app/hooks/useDarkMode';
+import { cn } from '../../../app/utils/cn';
 import { Logo } from '../../components/Logo';
 import { UserMenu } from '../../components/UserMenu';
 import { Accounts } from './components/Accounts';
@@ -9,12 +11,13 @@ import { NewAccountModal } from './modals/NewAccountModal';
 import { NewTransactiontModal } from './modals/NewTransactionModal';
 
 export function Dashboard() {
+  const { isDarkMode } = useDarkMode()
 
   return (
     <DashboardProvider>
       <DashboardContext.Consumer>
         {({ accountBeingEdited }) => (
-          <div className="h-full w-full p-4 md:px-8 md:pb-8 md:pt-6 flex flex-col">
+          <div className={cn("h-full w-full p-4 md:px-8 md:pb-8 md:pt-6 flex flex-col", isDarkMode && 'bg-gray-900')}>
             <header className="h-12 flex justify-between items-center mb-4">
               <Logo className="h-6 text-teal-900" />
               <UserMenu />

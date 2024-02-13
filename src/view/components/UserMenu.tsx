@@ -1,9 +1,13 @@
 import { ExitIcon } from '@radix-ui/react-icons'
 import { DropdownMenu } from './DropdownMenu'
 import { useAuth } from '../../app/hooks/useAuth'
+import { DarkmodeSwitch } from './DarkModeSwitch';
+import { cn } from '../../app/utils/cn';
+import { useDarkMode } from '../../app/hooks/useDarkMode';
 
 export function UserMenu() {
   const { signout, user } = useAuth()
+  const { isDarkMode } = useDarkMode()
 
   const firstName = user?.name.split(' ')[0];
   const lastName = user?.name.split(' ')[1]
@@ -17,15 +21,21 @@ export function UserMenu() {
         </div>
       </DropdownMenu.Trigger>
 
-      <DropdownMenu.Content className="w-32">
+      <DropdownMenu.Content className={cn("w-32", isDarkMode && 'bg-gray-900')}>
         <DropdownMenu.Item
           onSelect={signout}
-          className="flex items-center justify-between"
+          className={cn("flex items-center justify-between", isDarkMode && 'text-white data-[highlighted]:bg-teal-900')}
         >
           Sair
           <ExitIcon className="w-4 h-4" />
         </DropdownMenu.Item>
+        <DropdownMenu.Item
+          className={cn("flex items-center justify-between", isDarkMode && 'data-[highlighted]:bg-teal-900')}
+        >
+          <DarkmodeSwitch />
+        </DropdownMenu.Item>
       </DropdownMenu.Content>
+
     </DropdownMenu.Root>
   )
 }
